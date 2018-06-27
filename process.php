@@ -13,6 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // if method is post
     if (strlen($usr) < 6 || strlen($display) < 6 || strlen($pwd) < 6) { // if Character expectation less then:
       echo "Username, display and password must be at least 6 characters";
     }
+    elseif (strlen($usr) > 20 || strlen($display) > 20 || strlen($pwd) > 20) {
+      echo "Username, display and password cannot exceed more than 20 characters";
+      }
     else { // otherwise:
       $conn = new mysqli("localhost","root","root","project"); // use OOP style to establish connection;
       $query = "SELECT * FROM users WHERE usr='$usr'";
@@ -26,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // if method is post
         $res = $conn->query($query); // execut $query and store in $res just in case
         $_SESSION["usr"] = $usr;
         $_SESSION["display"] = $display;
-        $_SESSION["pwd"] = $pwd;
-        header("Location:Session/session.php");// echo success
+        echo "0";
       }
     }
 
@@ -46,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // if method is post
     if ($check == 1) { // if username and password does match
       $_SESSION["usr"] = $row["usr"];
       $_SESSION["display"] = $row["display"];
-      header("location:Session/session.php");
+      echo "0";     
     }
   }
 }
