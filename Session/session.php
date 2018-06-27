@@ -15,7 +15,7 @@ else {
     <title>Your Session</title>
   </head>
   <body>
-    Username: <input type="text" name="" value="<?php echo $usr; ?>" readonly> <button type="button" name="usr" class="edit>Edit</button> <br>
-    Display name: <input type="text" name="" value="<?php echo $display; ?>" readonly> <button type="button" name="display" class="edit>Edit</button>
+    Username: <input type="text" name="" value="<?php echo $usr; ?>" readonly> <button type="button" name="usr" class="edit">Edit</button> <br>
+    Display name: <input type="text" name="" value="<?php echo $display; ?>" readonly> <button type="button" name="display" class="edit">Edit</button>
   </body>
 </html>
