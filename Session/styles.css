@@ -103,3 +103,11 @@ button a {
   color:white;
   font-family: PT-mono;
 }
+
+.content form {
+  font-size: 20px
+}
+.content .p {
+  color: red;
+  font-size: 15px;
+}
