@@ -2,9 +2,10 @@
 
   session_start();
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     if($_POST["type"] == "username"){
       $old_user = $_SESSION["usr"];
-      $old_display = $_SESSION["display"];
+      //$old_display = $_SESSION["display"];
       $pass = $_POST["pwd"];
       $new_user = $_POST["usr"];
       $new_display = $_POST["display"];
@@ -48,7 +49,7 @@
         $row = $res->fetch_assoc();
         $pass = $row["pwd"];
         $new_pass = $_POST["np"];
-        if (!$_POST["op"] == $pass) {
+        if (!($_POST["op"] == $pass)) {
           echo "Incorrect password, try again";
         }
         else {
@@ -57,6 +58,22 @@
           $conn->query("UPDATE users SET pwd='$new_pass' WHERE ID=".$row["ID"]);
           echo "1";}
         }
+      }
+      elseif ($_POST["type"] == "profile") {
+        $file =  $_FILES["fileupload"];
+        $fileName = $file["name"];
+        $conn = new mysqli("localhost","root","root","project");
+        $query = "SELECT * FROM users WHERE usr='".$_SESSION["usr"]."'";
+        $res = $conn->query($query);
+        $row = $res->fetch_assoc();
+        $id = $row["ID"];
+        $dest = "../dps/".$id.".jpg";
+        $query = "UPDATE users SET image='$id.jpg' WHERE id='$id'";
+        $res = $conn->query($query);
+
+        move_uploaded_file($file["tmp_name"],$dest);
+        header("location:session.php");
+        //echo "test";
       }
 
   }

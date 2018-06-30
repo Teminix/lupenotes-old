@@ -12,7 +12,10 @@
 /*FONTS END */
 
 
-
+img {
+  width: 150px;
+  height: 150px;
+}
 .main {
   background-color: black;
   padding:20px;

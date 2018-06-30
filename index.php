@@ -14,16 +14,38 @@
     <title>Registration page</title>
     <link rel="stylesheet" href="/styles/main.css">
     <script src="scripts/Libraries/jquery.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      function EnterRegister() {
+          var user = document.getElementsByName('usr')[0].value;
+          var pass = document.getElementsByName('pwd')[0].value;
+          var displayName = document.getElementsByName('display')[0].value;
+          var subtype = $("#submit").val();
+          $.ajax({
+            type:"POST",
+            url:"process.php",
+            data:{ usr:user,display:displayName,pwd:pass,type:subtype },
+            success: function(data) {
+              if (data == "0") {
+                window.location.href = "Session/session.php";
+              }
+              else {
+              $("#status").html(data);}
+            },
+            error: function() {
+              $("#status").html("Some error has occured during registration")
+            }
 
+      });};
+    </script>
   </head>
   <body>
     <center>
       <form id="form" method="POST">
         <center>
           Register now!<br><br>
-          <input type="text" name="usr" placeholder="Username*" required><br>
-          <input type="text" name="display" placeholder="Dispay name*" required><br>
-          <input type="password" name="pwd" placeholder="Password*" required><br>
+          <input type="text" name="usr" placeholder="Username*" required onkeypress="if (event.keyCode == 13) {EnterRegister()}"><br>
+          <input type="text" name="display" placeholder="Dispay name*" required onkeypress="if (event.keyCode == 13) {EnterRegister()}"><br>
+          <input type="password" name="pwd" placeholder="Password*" required onkeypress="if (event.keyCode == 13) {EnterRegister()}"><br>
           <div id="status"></div>
            <br><br>
            <button type="button" id="submit" value="register">Register</button>
@@ -35,28 +57,7 @@
   </center>
   <script type="text/javascript">
   $(function () {
-    $("#submit").click(function() {
-      console.log("Front End data: \n"+" Username: "+user+"\n Password: "+pass+"\n DisplayName: "+displayName);
-      var user = document.getElementsByName('usr')[0].value;
-      var pass = document.getElementsByName('pwd')[0].value;
-      var displayName = document.getElementsByName('display')[0].value;
-      var subtype = $("#submit").val();
-      $.ajax({
-        type:"POST",
-        url:"process.php",
-        data:{ usr:user,display:displayName,pwd:pass,type:subtype },
-        success: function(data) {
-          if (data == "0") {
-            window.location.href = "Session/session.php";
-          }
-          else {
-          $("#status").html(data);}
-        },
-        error: function() {
-          console.log("Some error has occured during registration")
-        }
-      });//$ajax
-    });//$("#submit")
+    $("#submit").click(function() {EnterRegister()});//$("#submit")
   });//function()
   </script>
   </body>

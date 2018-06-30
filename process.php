@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // if method is post
     if ($check == 1) { // if username and password does match
       $_SESSION["usr"] = $row["usr"];
       $_SESSION["display"] = $row["display"];
-      echo "0";     
+      echo "0";
     }
   }
 }
