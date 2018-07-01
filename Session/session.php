@@ -118,10 +118,13 @@ else {
     </div>
   </div>
   <div class="modal"> <!-- MODAL DIVISION 3 -->
-    <div class="content">
+    <div class="content" style="width:35%">
       <form action="changes.php" method="POST" enctype="multipart/form-data">
-        Edit profile picture:<br><br>
+        Change profile picture:<br><br>
           <input type="file" accept="image/*" name="fileupload"><br><br>
+          <img id="prev"><br><br>
+          <span class="p"></span>
+          <button type="button" name="clear">Reset Picture</button><br>
           <button type="button" class="cancel">Cancel</button>
           <button type="submit" name="type" value="profile">Update Profile Pic</button>
     </form>
@@ -137,6 +140,8 @@ else {
       var cancel_button = document.getElementsByClassName('cancel');
       var verify_button = document.getElementsByClassName('verify');
       var update_button = document.getElementsByName('profile');
+      var img_input = document.getElementsByName("fileupload");
+      var clear_img = document.getElementsByName("clear");
       edit_button[0].onclick = function () {
         modal[0].style.display = "block";
         document.getElementsByName('usr')[1].value = document.getElementsByName('usr')[0].value;
@@ -160,6 +165,28 @@ else {
       verify_button[0].onclick = function() {changeUsr()};
       update_button[0].onclick = function () {
         modal[2].style.display = "block";
+      }
+      img_input[0].onchange = function() {
+        const reader = new FileReader();
+        reader.readAsDataURL(img_input[0].files[0])
+        reader.onload = function () {
+          img = document.getElementById("prev");
+          img.setAttribute("src",reader.result);
+        }
+      }
+      clear_img[0].onclick = function () {
+        $.ajax({
+          type:"POST",
+          url:"changes.php",
+          data: {clear:"TRUE"},
+          success: function (data) {
+            //prompts[2].innerHTML = data;
+            window.location.reload(true);
+          },
+          error: function () {
+            prompts[2].innerHTML = "Some error has occured";
+          }
+        });
       }
 
 

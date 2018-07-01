@@ -16,6 +16,11 @@ img {
   width: 150px;
   height: 150px;
 }
+img#prev {
+  width: 200px;
+  height: 200px;
+  border: white 7px solid;
+}
 .main {
   background-color: black;
   padding:20px;

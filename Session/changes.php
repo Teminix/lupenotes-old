@@ -1,6 +1,11 @@
 <?php
 
   session_start();
+
+  $HOSTNAME = "localhost";
+  $USR = "root";
+  $PWD = "root";
+  $DBNAME = "project";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($_POST["type"] == "username"){
@@ -60,6 +65,7 @@
         }
       }
       elseif ($_POST["type"] == "profile") {
+
         $file =  $_FILES["fileupload"];
         $fileName = $file["name"];
         $conn = new mysqli("localhost","root","root","project");
@@ -74,6 +80,15 @@
         move_uploaded_file($file["tmp_name"],$dest);
         header("location:session.php");
         //echo "test";
+      }
+      elseif ($_POST["clear"] == "TRUE") {
+        $conn = new mysqli($HOSTNAME,$USR,$PWD,$DBNAME);
+        $res = $conn->query("SELECT * FROM users WHERE usr='".$_SESSION["usr"]."'");
+        $row = $res->fetch_assoc();
+        $id = $row["ID"];
+        //echo "User Details:<br> Username: ".$_SESSION["usr"]."<br> Display: ".$_SESSION["display"]."<br> ID: $id";
+        $conn->query("UPDATE users SET image='' WHERE ID='$id'");
+        unlink("../dps/$id.jpg");
       }
 
   }
