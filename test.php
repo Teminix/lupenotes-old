@@ -7,9 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Display name, username and password must be at least six characters long";
   }
   else {
-    echo "Username: ".$usr."\n";
-    echo "Password: ".$pwd."\n";
-    echo "Display name: ".$display."\n";}
+    echo "Username: ".$usr."<br>";
+    echo "Password: ".$pwd."<br>";
+    echo "Display name: ".$display."<br>";}
 }
 else {
   header("location:index.php");

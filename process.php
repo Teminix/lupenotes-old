@@ -27,8 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // if method is post
       if ($check == 0) {//if not
         $query = "INSERT INTO users (usr,display,pwd) VALUES ('$usr','$display','$pwd')"; // insert user query
         $res = $conn->query($query); // execut $query and store in $res just in case
-        $_SESSION["usr"] = $usr;
-        $_SESSION["display"] = $display;
+        $_SESSION["usr"] = $usr; // Set usr Session variable
+        $_SESSION["display"] = $display; // Set display name session variable
+        $temp_data = file_get_contents("temps/user-template.txt"); // get the data of the template file
+        $usr_file = fopen("users/$usr.php","w"); // open/create a new file with the username as the name of the file with php extension
+        fwrite($usr_file,$temp_data); // write to the $usr_file
+        fclose($temp_file);
+        fclose($usr_file);
         echo "0";
       }
     }

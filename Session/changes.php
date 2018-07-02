@@ -39,6 +39,7 @@
           $res = $conn->query($query);
           $_SESSION["usr"] = $new_user;
           $_SESSION["display"] = $new_display;
+          rename("../users/$old_user.php","../users/$new_user.php");
           echo "1";}}
         }
       else {
@@ -87,7 +88,7 @@
         $row = $res->fetch_assoc();
         $id = $row["ID"];
         //echo "User Details:<br> Username: ".$_SESSION["usr"]."<br> Display: ".$_SESSION["display"]."<br> ID: $id";
-        $conn->query("UPDATE users SET image='' WHERE ID='$id'");
+        $conn->query("UPDATE users SET image='default.jpg' WHERE ID='$id'");
         unlink("../dps/$id.jpg");
       }
 

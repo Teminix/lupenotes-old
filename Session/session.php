@@ -12,7 +12,7 @@ else {
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title><?php echo $usr ?>'s Profile</title>
+    <title>Your Profile</title>
     <link rel="stylesheet" href="styles.css">
     <script src="../scripts/Libraries/jquery.js" charset="utf-8"></script>
     <script type="text/javascript">
@@ -73,13 +73,7 @@ else {
       $conn = new mysqli("localhost","root","root","project");
       $res = $conn->query("SELECT * FROM users WHERE usr='".$_SESSION["usr"]."'");
       $row = $res->fetch_assoc();
-      if ($row["image"] == '') {
-        echo "<img src='../dps/default.jpg'>";
-      }
-      else {
-        echo "<img src='../dps/".$row["image"]."'>";
-      }
-
+      echo "<img src='../dps/".$row["image"]."'>"
        ?>
     <br>
     <span>Username: <input type="text" name="usr" value="<?php echo $usr; ?>" readonly> </span> <br>
